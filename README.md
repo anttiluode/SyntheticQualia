@@ -94,7 +94,7 @@ They converged on five parts. Each part was found because a body without it fail
 r \;=\; \text{prediction} - \text{world}
 ```
 
-Every branch learns from what the whole body still leaves unexplained at its own tip. The residue is **kept, not sent**. A body that sent only residue lost its content and could not chain imagined steps. A body that sent only content lost its confidence (QualeX §3).
+Every branch learns from what the whole body still leaves unexplained at its own tip. (Sign convention: this paper and the code use prediction − world. QualeX wrote the same residue as world − prediction; only the signs of the updates below flip.) The residue is **kept, not sent**. A body that sent only residue lost its content and could not chain imagined steps. A body that sent only content lost its confidence (QualeX §3).
 
 **2. Slow basal and apical weights.** Every branch has two weights. The basal weight *W* writes whatever the context is. The apical weight *V* writes only through the context state:
 
@@ -108,7 +108,7 @@ Every branch learns from what the whole body still leaves unexplained at its own
 g \;\leftarrow\; g - \eta\,\frac{\sum r\,V}{s\,\big(\sum V^2 + \kappa\big)} .
 ```
 
-The weights learn with three factors: $`W \leftarrow W - k\,r`$ and $`V \leftarrow V - k\,g\,r`$. The weights must be **slow**. With fast weights, the body relearned every block instead of discovering the rule. This was the decisive development finding of ApicalRuleReversalMachine.
+Here $`r`$ is the residue averaged over the branch's listening window, and $`s`$ is the branch's **self-response**: how much one unit of weight moves its own tip (a calibrated constant, 0.71). It is not a stimulus sign. The weights learn with three factors: $`W \leftarrow W - k\,r`$ and $`V \leftarrow V - k\,g\,r`$. No pulse sign appears, because pulses are positive and of constant size during learning, so their amplitude is folded into $`k`$. The sign of an input is carried by **which** half-wave bank fires (+ or −), not by a signed pulse. The weights must be **slow**. With fast weights, the body relearned every block instead of discovering the rule. This was the decisive development finding of ApicalRuleReversalMachine.
 
 **4. Multiplication.** For ±1 events every function is $`c_0 + c_1 A + c_2 b + c_3 Ab`$. A field that only adds can never make $`c_3`$. The gate is what makes it: the term that lets a context reverse what a stimulus means. In mouse cortex this is the job Zhang et al. (2025) locate in the apical dendrite.
 
